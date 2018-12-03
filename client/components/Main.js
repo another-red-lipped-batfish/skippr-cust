@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import * as actions from '../actions/actions';
 
 const mapStateToProps = store => ({
-  
+  user: store.user,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
 const Main = (props) => {
   return (
     <ScrollView style={styles.scroll}>
+      <Text>Welcome {props.user.firstName}!</Text>
       <Text>Hello1</Text>
       <Text>Hello2</Text>
       <Text>Hello3</Text>

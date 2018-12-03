@@ -4,19 +4,24 @@ import { connect } from 'react-redux';
 import * as actions from '../actions/actions';
 
 const mapStateToProps = store => ({
-  
+  user: store.user
 });
 
 const mapDispatchToProps = dispatch => ({
+  logemail: (text) => {
+    dispatch(actions.logEmail(text));
+  },
+  logpass: (text) => {
+    dispatch(actions.logPass(text));
+  },
   login: (event) => {
+    // console.log(event);
     dispatch(actions.logIn(event));
   }
 });
 
 const styles = StyleSheet.create({
   form: {
-    // borderColor: 'gray',
-    // borderWidth: 1,
     height: 50,
     fontSize: 20
   },
@@ -34,9 +39,10 @@ const Login = (props) => {
   return (
     <View style={styles.formBox}>
       <Text style={styles.formTitle}>But first, log in!</Text>
-      <TextInput placeholder="Email please!" style={styles.form} />
-      <TextInput placeholder="Password please!" style={styles.form} />
-      <Button onPress={props.login} title="Log in!" color="lightblue" />
+      <TextInput onChangeText={props.logemail} placeholder="Email please!" style={styles.form} type="text" />
+      <TextInput onChangeText={props.logpass} placeholder="Password please!" style={styles.form} type="text" />
+      {/* <Button onPress={props.login} title="Log in!" color="lightblue" /> */}
+      <Button onPress={() => { props.login(props.user); }} title="Log in!" color="lightblue" />
     </View>
   );
 };
