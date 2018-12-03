@@ -17,7 +17,7 @@ export const logPass = (text) => ({
 
 export const logIn = (state) => {
   return (dispatch) => {
-    fetch('http://192.168.0.105:3000/user/login', {
+    fetch('http://redlippedbatfish.herokuapp.com/user/login', {
       method: 'POST',
       mode: 'cors',
       headers: {
@@ -41,7 +41,7 @@ export const logIn = (state) => {
 
 export const getRestaurants = () => {
   return (dispatch) => {
-    fetch('http://192.168.0.105:3000/user/restaurants')
+    fetch('http://redlippedbatfish.herokuapp.com/user/restaurants')
       .then(res => res.json())
       .then((restaurants) => {
         dispatch({
