@@ -13,14 +13,20 @@ const mapDispatchToProps = dispatch => ({
 
 const styles = StyleSheet.create({
   scroll: {
-    marginTop: 10
+    marginTop: 10,
+  },
+  userName: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontWeight: 'bold',
+    fontSize: 20
   }
 });
 
 const Main = (props) => {
   return (
     <ScrollView style={styles.scroll}>
-      <Text>Welcome {props.user.firstName}!</Text>
+      <Text style={styles.userName}>Welcome {props.user.firstName}!</Text>
       <Text>Hello1</Text>
       <Text>Hello2</Text>
       <Text>Hello3</Text>

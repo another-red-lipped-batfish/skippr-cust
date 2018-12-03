@@ -15,7 +15,6 @@ const mapDispatchToProps = dispatch => ({
     dispatch(actions.logPass(text));
   },
   login: (event) => {
-    // console.log(event);
     dispatch(actions.logIn(event));
   }
 });
