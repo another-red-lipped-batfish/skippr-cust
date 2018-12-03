@@ -38,3 +38,16 @@ export const logIn = (state) => {
       });
   };
 };
+
+export const getRestaurants = () => {
+  return (dispatch) => {
+    fetch('http://192.168.0.105:3000/user/restaurants')
+      .then(res => res.json())
+      .then((restaurants) => {
+        dispatch({
+          type: types.GET_RESTAURANTS,
+          payload: restaurants,
+        });
+      });
+  };
+}

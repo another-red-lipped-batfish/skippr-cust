@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 
 // import all reducers here
 import userReducer from './userReducer';
-import businessReducer from './businessReducer';
+import restaurantReducer from './restaurantReducer';
 import orderReducer from './orderReducer';
 
 
@@ -10,7 +10,7 @@ import orderReducer from './orderReducer';
 const reducers = combineReducers({
   // if we had other reducers, they would go here
   user: userReducer,
-  business: businessReducer,
+  restaurant: restaurantReducer,
   order: orderReducer,
 });
 
