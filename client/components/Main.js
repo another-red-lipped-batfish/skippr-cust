@@ -14,8 +14,6 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-
-
 const styles = StyleSheet.create({
   scroll: {
     marginTop: 10,
@@ -34,23 +32,23 @@ class Main extends React.Component {
   };
 
   componentDidMount() {
-    console.log('called');
+    // console.log('called');
     this.props.onLoad();
   }
 
   render() {
-    console.log('New: ', this.props.restaurant);
+    // console.log('New: ', this.props.restaurant);
     const restaurantList = [];
     this.props.restaurant.list.forEach((element, i) => {
       restaurantList.push(<Text key={i}>{element['rest_name']}</Text>);
     })
     return (
-    <ScrollView style={styles.scroll}>
-      <Text style={styles.userName}>Welcome {this.props.user.firstName}!</Text>
-      {restaurantList}
-    </ScrollView>
-   )
-    };
-};
+      <ScrollView style={styles.scroll}>
+        <Text style={styles.userName}>Welcome {this.props.user.firstName}!</Text>
+        {restaurantList}
+      </ScrollView>
+    );
+  }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
