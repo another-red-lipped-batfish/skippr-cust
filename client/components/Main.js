@@ -5,11 +5,16 @@ import * as actions from '../actions/actions';
 
 const mapStateToProps = store => ({
   user: store.user,
+  restaurant: store.restaurant,
 });
 
 const mapDispatchToProps = dispatch => ({
-  
+  onLoad: () => {
+    dispatch(actions.getRestaurants());
+  }
 });
+
+
 
 const styles = StyleSheet.create({
   scroll: {
@@ -23,15 +28,29 @@ const styles = StyleSheet.create({
   }
 });
 
-const Main = (props) => {
-  return (
+class Main extends React.Component {
+  constructor(props) {
+    super(props);
+  };
+
+  componentDidMount() {
+    console.log('called');
+    this.props.onLoad();
+  }
+
+  render() {
+    console.log('New: ', this.props.restaurant);
+    const restaurantList = [];
+    this.props.restaurant.list.forEach((element, i) => {
+      restaurantList.push(<Text key={i}>{element['rest_name']}</Text>);
+    })
+    return (
     <ScrollView style={styles.scroll}>
-      <Text style={styles.userName}>Welcome {props.user.firstName}!</Text>
-      <Text>Hello1</Text>
-      <Text>Hello2</Text>
-      <Text>Hello3</Text>
+      <Text style={styles.userName}>Welcome {this.props.user.firstName}!</Text>
+      {restaurantList}
     </ScrollView>
-  );
+   )
+    };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
