@@ -17,7 +17,7 @@ export const logPass = (text) => ({
 
 export const logIn = (state) => {
   return (dispatch) => {
-    fetch('http://192.168.86.234:3000/user/login', {
+    fetch('http://192.168.0.105:3000/user/login', {
       method: 'POST',
       mode: 'cors',
       headers: {

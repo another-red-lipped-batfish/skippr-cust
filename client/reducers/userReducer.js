@@ -26,7 +26,6 @@ const userReducer = (state=initialState, action) => {
 
     case types.LOG_EMAIL:
       emailField = action.payload;
-      // console.log(action.payload);
       return {
         ...state,
         emailField,
@@ -51,7 +50,6 @@ const userReducer = (state=initialState, action) => {
       emailField = '';
       passwordField = '';
       logged = true;
-      // console.log(state);
       return {
         ...state,
         id,
