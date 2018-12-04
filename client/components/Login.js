@@ -39,7 +39,7 @@ const Login = (props) => {
     <View style={styles.formBox}>
       <Text style={styles.formTitle}>But first, log in!</Text>
       <TextInput onChangeText={props.logemail} placeholder="Email please!" style={styles.form} type="text" />
-      <TextInput onChangeText={props.logpass} placeholder="Password please!" style={styles.form} type="text" />
+      <TextInput onChangeText={props.logpass} placeholder="Password please!" style={styles.form} type="text" secureTextEntry={true} />
       {/* <Button onPress={props.login} title="Log in!" color="lightblue" /> */}
       <Button onPress={() => { props.login(props.user); }} title="Log in!" color="lightblue" />
     </View>

@@ -1,17 +1,19 @@
 import { combineReducers } from 'redux';
 
 // import all reducers here
-import userReducer from './userReducer';
-import restaurantReducer from './restaurantReducer';
-import orderReducer from './orderReducer';
+import usersReducer from './usersReducer';
+import restaurantsReducer from './restaurantsReducer';
+import ordersReducer from './ordersReducer';
+import menusReducer from './menusReducer';
 
 
 // combine reducers
 const reducers = combineReducers({
   // if we had other reducers, they would go here
-  user: userReducer,
-  restaurant: restaurantReducer,
-  order: orderReducer,
+  user: usersReducer,
+  restaurant: restaurantsReducer,
+  order: ordersReducer,
+  menu: menusReducer,
 });
 
 // make the combined reducers available for import
