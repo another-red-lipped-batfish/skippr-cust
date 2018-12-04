@@ -50,4 +50,49 @@ export const getRestaurants = () => {
         });
       });
   };
+};
+
+export const getMenu = () => {
+  console.log('getting menu');
+  return (dispatch) => {
+    fetch('http://redlippedbatfish.herokuapp.com/user/restaurants/1')
+      .then(res => res.json())
+      .then((menu) => {
+        dispatch({
+          type: types.GET_MENU,
+          payload: menu,
+        });
+      });
+  }
 }
+
+export const setOrder = (key) => ({
+  type: types.SET_ORDER,
+  payload: key,
+});
+
+export const submitOrder = (state) => {
+  console.log('before submitting order');
+  return (dispatch) => {
+    fetch('http://redlippedbatfish.herokuapp.com/user/order', {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        'Access-Control-Allow-Origin': '*',
+      },
+      body: JSON.stringify({
+        userId: 1,
+        restId: 1,
+        menuItems: state.menuItems,
+      }),
+    })
+      .then(res => res.json())
+      .then((order) => {
+        dispatch({
+          type: types.SUBMIT_ORDER,
+          payload: order,
+        });
+      });
+  };
+};
