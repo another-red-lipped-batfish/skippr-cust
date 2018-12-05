@@ -26,7 +26,7 @@ class MainContainer extends React.Component {
     return(
       <View style={styles.container}>
         <Text style={styles.subtitle}>Ready to skip the line to your favorite shop?!</Text>
-        <Logged />
+        <Logged navigator={this.props.navigator}/>
       </View>
     )
   }

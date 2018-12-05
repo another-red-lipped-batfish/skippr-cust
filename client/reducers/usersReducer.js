@@ -26,6 +26,7 @@ const userReducer = (state=initialState, action) => {
 
     case types.LOG_EMAIL:
       emailField = action.payload;
+      console.log('CHANGING STATEEEEEEEE')
       return {
         ...state,
         emailField,
@@ -61,44 +62,6 @@ const userReducer = (state=initialState, action) => {
         passwordField,
         logged,
       };
-      // fetch('http://192.168.86.234:3000/user/login', {
-      //   method: 'POST',
-      //   mode: 'cors',
-      //   headers: {
-      //     'Content-Type': 'application/json; charset=utf-8',
-      //     'Access-Control-Allow-Origin': '*',
-      //   },
-      //   body: JSON.stringify({
-      //     email: state.emailField,
-      //     password: state.passwordField,
-      //   }),
-      // })
-      //   .then(res => res.json())
-      //   .then((data) => {
-      //     id = data['user_id'];
-      //     firstName = data['user_firstname'];
-      //     lastName = data['user_lastname'];
-      //     email = data['user_email'];
-      //     phone = data['user_phone'];
-      //     emailField = '';
-      //     passwordField = '';
-      //     logged = true;
-      //     // console.log(state);
-      //     return {
-      //       ...state,
-      //       // id,
-      //       // firstName,
-      //       // lastName,
-      //       // email,
-      //       // phone,
-      //       // emailField,
-      //       // passwordField,
-      //       logged,
-      //     };
-      //   })
-      //   .catch((error) => {
-      //     console.log(error);
-      //   });
 
     default:
       return state;
