@@ -1,12 +1,13 @@
 // import React from 'react';
-// // import { render } from 'react-dom';
-// import { Provider } from 'react-redux';
 // import App from './App';
-// import store from './store';
+// import { NavigatorIOS } from 'react-native';
 
-// render(
-//   // wrap the App in the Provider and pass in the store
-//   <Provider store={store}>
-//     <App />
-//   </Provider>
-// );
+// export default class Navigator extends React.Component {
+// 	render() {
+// 		return (
+// 			<NavigatorIOS
+// 				initialRoute={{component: App}}
+// 			/>
+// 		)
+// 	}
+// }
