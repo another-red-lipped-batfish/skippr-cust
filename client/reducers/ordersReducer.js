@@ -2,17 +2,17 @@ import * as types from '../constants/actionTypes';
 
 const initialState = {
   menuItems: [],
-  userId: 1,
-  restId: 1,
+  restId: null,
   message: null,
 };
 
-const orderReducer = (state=initialState, action) => {
+const orderReducer = (state = initialState, action) => {
   // let menuItems = state.menuItems;
   let menuItems;
   const itemsPicked = [];
   let message;
-  switch(action.type) {
+
+  switch (action.type) {
     case types.SET_ORDER:
       console.log('pushing ', action.payload);
       itemsPicked.push(action.payload);
@@ -30,7 +30,7 @@ const orderReducer = (state=initialState, action) => {
         ...state,
         message,
         menuItems,
-      }
+      };
     default:
       return state;
   }
