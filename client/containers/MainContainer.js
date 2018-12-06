@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   subtitle: {
-    fontSize: 20,
+    fontSize: 17,
     fontWeight: 'bold'
   },
 });
