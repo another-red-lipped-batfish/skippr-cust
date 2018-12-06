@@ -13,7 +13,7 @@ const mapStateToProps = store => ({
 const mapDispatchToProps = dispatch => ({
   onLoad: () => {
     dispatch(actions.getRestaurants());
-    dispatch(actions.getMenu());
+    // dispatch(actions.getMenu());
   },
   setOrder: (key) => {
     console.log('setting order');
