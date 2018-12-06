@@ -68,6 +68,11 @@ export const setOrder = key => ({
   payload: key,
 });
 
+export const deleteOrder = key => ({
+  type: types.DELETE_ORDER,
+  payload: key,
+});
+
 export const submitOrder = (state) => {
   console.log('before submitting order');
   return (dispatch) => {

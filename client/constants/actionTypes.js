@@ -5,3 +5,4 @@ export const GET_RESTAURANTS = 'GET_RESTAURANTS';
 export const GET_MENU = 'GET_MENU';
 export const SET_ORDER = 'SET_ORDER';
 export const SUBMIT_ORDER = 'SUBMIT_ORDER';
+export const DELETE_ORDER = 'DELETE_ORDER';
