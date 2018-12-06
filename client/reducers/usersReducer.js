@@ -26,7 +26,6 @@ const userReducer = (state=initialState, action) => {
 
     case types.LOG_EMAIL:
       emailField = action.payload;
-      console.log('CHANGING STATEEEEEEEE')
       return {
         ...state,
         emailField,
