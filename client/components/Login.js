@@ -1,10 +1,13 @@
 import React from 'react';
-import { View, TextInput, Button, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import {
+  View, TextInput, Text,
+  StyleSheet, TouchableOpacity,
+} from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from '../actions/actions';
 
 const mapStateToProps = store => ({
-  user: store.user
+  user: store.user,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -16,7 +19,7 @@ const mapDispatchToProps = dispatch => ({
   },
   login: (event) => {
     dispatch(actions.logIn(event));
-  }
+  },
 });
 
 const styles = StyleSheet.create({
@@ -28,17 +31,17 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: 15,
     paddingLeft: 60,
-    paddingRight: 60
+    paddingRight: 60,
   },
   formTitle: {
     fontSize: 20,
     textDecorationLine: 'underline',
     textAlign: 'center',
-    marginBottom: 18
+    marginBottom: 18,
   },
   formBox: {
     marginTop: 10,
-    padding: 10
+    padding: 10,
   },
   button: {
     marginTop: 30,
@@ -46,14 +49,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#007bff',
     borderColor: '#007bff',
     borderWidth: 3,
-    padding: 5
+    padding: 5,
   },
   login: {
     justifyContent: 'center',
     textAlign: 'center',
     color: 'white',
-    fontSize: 27
-  }
+    fontSize: 27,
+  },
 });
 
 const Login = (props) => {

@@ -1,12 +1,12 @@
 // import actionType constants
 import * as types from '../constants/actionTypes';
 
-export const logEmail = (text) => ({
+export const logEmail = text => ({
   type: types.LOG_EMAIL,
   payload: text,
 });
 
-export const logPass = (text) => ({
+export const logPass = text => ({
   type: types.LOG_PASSWORD,
   payload: text,
 });
@@ -48,21 +48,22 @@ export const getRestaurants = () => {
   };
 };
 
-export const getMenu = () => {
-  console.log('getting menu');
+export const getMenu = (rest_id) => {
+  console.log(`Restaurant ID: ${rest_id}`);
   return (dispatch) => {
-    fetch('https://infinite-waters-83473.herokuapp.com/user/restaurants/1')
+    fetch(`https://infinite-waters-83473.herokuapp.com/user/restaurants/${rest_id}`)
       .then(res => res.json())
       .then((menu) => {
+        console.log(menu);
         dispatch({
           type: types.GET_MENU,
           payload: menu,
         });
       });
-  }
-}
+  };
+};
 
-export const setOrder = (key) => ({
+export const setOrder = key => ({
   type: types.SET_ORDER,
   payload: key,
 });
