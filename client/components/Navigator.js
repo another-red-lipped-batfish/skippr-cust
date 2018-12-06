@@ -12,7 +12,7 @@ export default class NavigatorIOSApp extends React.Component {
     return (
       <NavigatorIOS 
 			  style={{flex: 1, alignSelf: 'stretch'}}
-        initialRoute={{component: MainContainer}}
+        initialRoute={{component: MainContainer, title: 'Skippr'}}
 				navigationBarHidden={true}
       />
     )

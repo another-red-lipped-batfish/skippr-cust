@@ -13,7 +13,7 @@ export const logPass = (text) => ({
 
 export const logIn = (state) => {
   return (dispatch) => {
-    fetch('http://redlippedbatfish.herokuapp.com/user/login', {
+    fetch('https://infinite-waters-83473.herokuapp.com/user/login', {
       method: 'POST',
       mode: 'cors',
       headers: {
@@ -37,7 +37,7 @@ export const logIn = (state) => {
 
 export const getRestaurants = () => {
   return (dispatch) => {
-    fetch('http://redlippedbatfish.herokuapp.com/user/restaurants')
+    fetch('https://infinite-waters-83473.herokuapp.com/user/restaurants')
       .then(res => res.json())
       .then((restaurants) => {
         dispatch({
@@ -51,7 +51,7 @@ export const getRestaurants = () => {
 export const getMenu = () => {
   console.log('getting menu');
   return (dispatch) => {
-    fetch('http://redlippedbatfish.herokuapp.com/user/restaurants/1')
+    fetch('https://infinite-waters-83473.herokuapp.com/user/restaurants/1')
       .then(res => res.json())
       .then((menu) => {
         dispatch({
@@ -70,7 +70,7 @@ export const setOrder = (key) => ({
 export const submitOrder = (state) => {
   console.log('before submitting order');
   return (dispatch) => {
-    fetch('http://redlippedbatfish.herokuapp.com/user/order', {
+    fetch('https://infinite-waters-83473.herokuapp.com/user/order', {
       method: 'POST',
       mode: 'cors',
       headers: {

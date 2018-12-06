@@ -29,7 +29,9 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     borderColor: 'lightblue',
     borderRadius: 10,
-    padding: 20,
+    width: 350,
+    paddingTop: 10,
+    paddingBottom: 10,
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 10
@@ -39,39 +41,32 @@ const styles = StyleSheet.create({
     fontSize: 20
   },
   scroll: {
-    borderColor: 'lightgray',
+    borderColor: 'white',
     borderWidth: 2,
     borderRadius: 10,
     marginTop: 10,
-    paddingLeft: 60,
-    paddingRight: 60,
-    paddingTop: 20
+    paddingLeft: 2,
+    paddingRight: 2,
+    paddingTop: 20,
   },
   userName: {
     flex: 1,
+    textAlign: 'center',
     alignItems: 'center',
     justifyContent: 'center',
     fontWeight: 'bold',
     fontSize: 30,
+    marginBottom: 5,
+    marginTop: 0
+  },
+  list: {
+    flex: 1,
+    textAlign: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontWeight: 'bold',
+    fontSize: 18.5,
     marginBottom: 20,
-  },
-  menu: {
-    marginTop: 25
-  },
-  menottis: {
-    fontSize: 15
-  },
-  menottisTitle: {
-    fontSize: 30,
-    fontWeight: 'bold',
-  },
-  menottisView: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 25
-  },
-  menuItemTitle: {
-    fontWeight: 'bold'
   }
 });
 
@@ -102,8 +97,9 @@ class Main extends React.Component {
       this.props.restaurant.forEach((element, i) => {
         restaurantList.push(
           <TouchableOpacity key={i} style={styles.singleRest} onPress={() => this.handleClickedRestaurant(element)}>
+            <Image style={{ width: 300, height: 50, borderWidth: 1, borderRadius: 10 }} source={{ uri: element['rest_imagelink'] }} />
             <Text style={styles.restName}>
-              {element['rest_name']}
+            {element['rest_name']}
             </Text>
           </TouchableOpacity>
         );
@@ -111,6 +107,7 @@ class Main extends React.Component {
       return (
         <ScrollView style={styles.scroll}>
           <Text style={styles.userName}>Welcome, {this.props.user.firstName}!</Text>
+          <Text style={styles.list}>Please choose a coffee shop to start:</Text>
           {restaurantList}
         </ScrollView>
       );
