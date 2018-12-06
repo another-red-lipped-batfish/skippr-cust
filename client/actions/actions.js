@@ -49,10 +49,12 @@ export const getRestaurants = () => {
 };
 
 export const getMenu = (rest_id) => {
+  console.log(`Restaurant ID: ${rest_id}`);
   return (dispatch) => {
     fetch(`http://redlippedbatfish.herokuapp.com/user/restaurants/${rest_id}`)
       .then(res => res.json())
       .then((menu) => {
+        console.log(menu);
         dispatch({
           type: types.GET_MENU,
           payload: menu,
