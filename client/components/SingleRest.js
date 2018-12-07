@@ -193,7 +193,7 @@ class SingleRest extends React.Component {
             <Toast ref='toast' style={{ backgroundColor: '#005A9C', padding: 20, fontSize: 100 }} opacity={0.85} />
           </View>
           <View>
-            <SkipprBasket menuLoaded={menuLoaded} order={order} menu={menu} deleteOrder={deleteOrder}/>
+            <SkipprBasket navigator={navigator} submitOrder={submitOrder} menuLoaded={menuLoaded} order={order} menu={menu} deleteOrder={deleteOrder}/>
           </View>
         </Swiper>
       );

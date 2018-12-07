@@ -68,6 +68,10 @@ export const setOrder = key => ({
   payload: key,
 });
 
+export const resetMessage = () => ({
+  type: types.RESET_MESSAGE
+});
+
 export const deleteOrder = key => ({
   type: types.DELETE_ORDER,
   payload: key,
