@@ -2,7 +2,7 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import {
   ScrollView, TouchableHighlight, View,
-  Image, Text, Button, StyleSheet, TouchableOpacity,
+  Image, Text, StyleSheet, TouchableOpacity,
 } from 'react-native';
 import Hyperlink from 'react-native-hyperlink';
 import { connect } from 'react-redux';
@@ -13,6 +13,7 @@ const mapStateToProps = store => ({
   menu: store.menu.menu,
   order: store.order,
   menuLoaded: store.menu.menuLoaded,
+  userLogIn: store.user.logged,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -20,7 +21,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(actions.getMenu(rest_id));
   },
   setOrder: (key) => {
-    console.log('setting order');
+    // console.log('setting order');
     dispatch(actions.setOrder(key));
   },
   submitOrder: (state) => {
@@ -95,14 +96,19 @@ class SingleRest extends React.Component {
   }
 
   componentDidMount() {
-    const { onLoad, restaurant } = this.props;
-    onLoad(restaurant.rest_id);
+    const { onLoad, restaurant, userLogIn } = this.props;
+    if (userLogIn) onLoad(restaurant.rest_id);
   }
+
+  // componentDidUpdate() {
+  //   const { userLogIn, navigator } = this.props;
+  //   if (!userLogIn) navigator.goBack(null);
+  // }
 
   renderSubmitOrder() {
     const { menuLoaded, menu } = this.props;
 
-    console.log(`menuLoaded: ${menuLoaded} / Menu: ${menu}`);
+    // console.log(`menuLoaded: ${menuLoaded} / Menu: ${menu}`);
     if (menuLoaded && menu.length > 0) {
       return (<TouchableOpacity 
                 style={styles.button}
@@ -116,12 +122,20 @@ class SingleRest extends React.Component {
   }
 
   render() {
-    console.log('Attempting to Render SingleRest');
+    // console.log('Attempting to Render SingleRest');
     const menuList = [];
     const {
-      restaurant, order, submitOrder,
+      restaurant, order, submitOrder, userLogIn,
       menu, navigator, setOrder, menuLoaded,
     } = this.props;
+    
+    /* Line below is controversial as it takes
+     * away the pure functionality of render.
+     * however after extensive research unable to
+     * determin alternate solution
+     */
+    if (!userLogIn) navigator.popToTop();
+    /*******************************************/
 
     if (restaurant && menuLoaded && menu) {
       let colorSwitch = false;
