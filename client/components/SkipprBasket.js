@@ -12,37 +12,84 @@ class SkipprBasket extends React.Component {
 		super(props);
 	};
 
+	renderSubmitOrder() {
+    const { menuLoaded, menu } = this.props;
+		
+		if (menuLoaded && menu.length > 0) {
+      return (
+				<View style={{justifyContent: 'top', alignItems: 'center'}}>
+					<TouchableOpacity 
+						style={{marginBottom: 5, marginTop: 15,
+						borderRadius: 10,
+						backgroundColor: '#007bff',
+						borderColor: '#007bff',
+						borderWidth: 3,
+						fontStyle: 'bold',
+						padding: 7,
+						width: '95%',
+						alignItems: 'center',
+						justifyContent: 'center',}}
+						onPress={() => submitOrder(order)}
+					>
+						<Text style={{color: 'white', fontSize: 25}}>Submit Order</Text>
+					</TouchableOpacity>
+				</View>);
+    } else {
+      return null;
+		}
+	};
+
+	renderOrderList(list) {
+		if (list.length === 0) return (
+			<View style={{height: 400, justifyContent: 'center'}}> 
+				<Text style={{fontSize: 30, color: 'lightgrey'}}> 
+					No orders to display &#9785;
+				</Text>
+			</View>
+		);
+		else return (
+			<View style={{ height: '100%', justifyContent: 'top' }}>
+				{list}
+			</View>
+		);
+	};
+
 	render() {
 		const currentOrders = [];
 		const { menu, order, deleteOrder } = this.props;
+		let total = 0;
 
 		console.log('HEREEEEEE ', menu);
 		console.log('YOOOOOO ', order);
 
 		order.menuItems.map((orderIndex) => {
 			const item = menu[orderIndex - 1];
+			total += (item.menu_item_price * 1);
 			return currentOrders.push(
 				<View style={{
 					paddingBottom: 10, borderRadius: 3.5, textAlign: 'center', borderColor: 'lightblue', 
-					borderWidth: 1, marginTop: 15, marginBottom: 10
+					borderWidth: 1, marginBottom: 2, width: 350
 				}}>
-					<Text style={{fontStyle: 'bold', fontSize: 18, marginLeft: '1%', marginTop: 10}}> 
-						{item.menu_item_name} 
-					</Text>
+					<View style={{flexDirection: 'row', justifyContent: 'space-between'}}> 
+						<Text style={{
+							fontStyle: 'bold', fontSize: 20, marginLeft: '1%', 
+							marginTop: 10, marginBottom: 20, textAlign: 'left'
+						}}> 
+							&nbsp; Item: {item.menu_item_name} 
+						</Text>
 
-					<Text style={{fontStyle: 'bold', fontSize: 15, marginLeft: '1%'}}>
-						{item.menu_item_price}
-					</Text>
-
-					<Text style={{fontStyle: 'bold', ontSize: 12, marginLeft: '1%'}}>
-						{item.menu_item_desc}
-					</Text>
-
+						<Text style={{
+							fontStyle: 'bold', fontSize: 20, marginLeft: '1%', 
+							marginTop: 10, textAlign: 'right', marginBottom: 20
+						}}>
+							Price: {item.menu_item_price} &nbsp;
+						</Text>
+					</View>
 					<TouchableOpacity
               style={{
 								borderRadius: 3,
-								backgroundColor: 'red',
-								borderColor: 'red',
+								backgroundColor: 'lightgrey',
+								borderColor: 'lightgrey',
 								borderWidth: 3,
 								padding: 5,
 								alignItems: 'center',
@@ -52,7 +99,7 @@ class SkipprBasket extends React.Component {
 								this.refs.toast.show('Removed ' + item.menu_item_name + '!', Toast.Duration.long, Toast.Position.top);
 								return deleteOrder(item.menu_item_id);
               }}>
-              <Text style={{color: 'white', fontSize: 18}}>Remove Item</Text>
+              <Text style={{color: 'red', fontSize: 20, fontStyle: 'bold'}}>&#10007; Remove Item</Text>
           </TouchableOpacity>
 				</View>
 			)
@@ -60,11 +107,33 @@ class SkipprBasket extends React.Component {
 
 		return (
 			<View> 
-				<ScrollView style={{ height: '100%', width: '100%', borderColor: 'black', borderWidth: 2}}>
-					<Text> ORDERS: </Text>
-					{currentOrders}
+				<View style={{ justifyContent: 'center', alignItems: 'center'}}>
+					<Text style={{
+							width: '85%',
+							padding: 5,
+							marginBottom: 10,
+							marginTop: 10,
+							textAlign: 'center',
+							fontSize: 30,
+							textDecorationLine: 'underline'
+						}}> 
+						Order Details: </Text>
+					</View>
+				<ScrollView style={{ 
+					height: '67%', width: '99%', alignItems: 'center',
+					borderColor: 'lightgrey', borderWidth: 2, borderRadius: 1, paddingTop: 10
+				}}>
+					{this.renderOrderList(currentOrders)}
 					<Toast ref='toast' style={{ backgroundColor: '#005A9C', padding: 20, fontSize: 100 }} opacity={0.85} fadeInDuration = {50} fadeOutDuration = {50}/>
 				</ScrollView>
+				<View style={{
+					textAlign: 'left',
+					borderColor: 'black', borderRadius: 1, borderWidth: 1,
+					backgroundColor: 'black', padding: 8
+				}}>
+					<Text style={{fontSize: 25, fontStyle: 'bold', color: 'white'}}>Total: ${total}</Text>
+				</View>
+				{this.renderSubmitOrder()}
 			</View>
 		)
 	}
