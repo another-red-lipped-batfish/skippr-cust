@@ -188,13 +188,12 @@ class SingleRest extends React.Component {
                 </Text>
               </Hyperlink>
               {menuList}
-              {this.renderSubmitOrder()}
             </ScrollView>
-            <Text style={{ width: '100%', fontSize: 18, textAlign: 'center', marginTop: 24, color: 'gray', fontStyle: 'italic' }}>&nbsp;Swipe to see Cart&nbsp;&#10095;</Text>
+            <Text style={{ width: '100%', fontSize: 18, textAlign: 'center', marginTop: 24, color: 'gray', fontStyle: 'italic' }}>&nbsp;Swipe to see Order Details&nbsp;&#10095;</Text>
             <Toast ref='toast' style={{ backgroundColor: '#005A9C', padding: 20, fontSize: 100 }} opacity={0.85} />
           </View>
           <View>
-            <SkipprBasket order={order} menu={menu} deleteOrder={deleteOrder}/>
+            <SkipprBasket menuLoaded={menuLoaded} order={order} menu={menu} deleteOrder={deleteOrder}/>
           </View>
         </Swiper>
       );
