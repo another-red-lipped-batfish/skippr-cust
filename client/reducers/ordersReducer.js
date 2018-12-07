@@ -13,6 +13,15 @@ const orderReducer = (state = initialState, action) => {
   let message;
 
   switch (action.type) {
+
+    case types.RESET_MESSAGE:
+      message = null;
+      console.log('resetting message');
+      return {
+        ...state,
+        message,
+      }
+
     case types.SET_ORDER:
       console.log('pushing ', action.payload);
       itemsPicked.push(action.payload);

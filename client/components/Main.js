@@ -3,11 +3,13 @@ import { ScrollView, View, Image, Text, Button, StyleSheet, NavigatorIOS, Toucha
 import { connect } from 'react-redux';
 import * as actions from '../actions/actions';
 import SingleRest from './SingleRest';
+import Toast from 'react-native-whc-toast';
 
 const mapStateToProps = store => ({
   user: store.user,
   restaurant: store.restaurant.list,
-  loaded: store.restaurant.loaded
+  loaded: store.restaurant.loaded,
+  order: store.order
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -21,7 +23,10 @@ const mapDispatchToProps = dispatch => ({
   },
   submitOrder: (state) => {
     dispatch(actions.submitOrder(state));
-  }
+  },
+  resetMessage: () => {
+    dispatch(actions.resetMessage());
+  },
 });
 
 const styles = StyleSheet.create({
@@ -93,6 +98,11 @@ class Main extends React.Component {
     if (!this.props.loaded) return null;
     else {
 
+      if (this.props.order.message !== null) {
+        this.refs.toast.show(this.props.order.message, Toast.Duration.short, Toast.Position.center)
+        this.props.resetMessage();
+      }
+
       const restaurantList = [];
       this.props.restaurant.forEach((element, i) => {
         restaurantList.push(
@@ -109,6 +119,7 @@ class Main extends React.Component {
           <Text style={styles.userName}>Welcome, {this.props.user.firstName}!</Text>
           <Text style={styles.list}>Please choose a coffee shop to start:</Text>
           {restaurantList}
+          <Toast ref='toast' style={{ backgroundColor: '#005A9C', padding: 20, fontSize: 100 }} opacity={0.85} />
         </ScrollView>
       );
     }

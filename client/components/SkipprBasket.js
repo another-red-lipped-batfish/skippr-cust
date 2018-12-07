@@ -13,7 +13,7 @@ class SkipprBasket extends React.Component {
 	};
 
 	renderSubmitOrder() {
-    const { menuLoaded, menu } = this.props;
+    const { menuLoaded, menu, order, submitOrder } = this.props;
 		
 		if (menuLoaded && menu.length > 0) {
       return (
@@ -29,7 +29,14 @@ class SkipprBasket extends React.Component {
 						width: '95%',
 						alignItems: 'center',
 						justifyContent: 'center',}}
-						onPress={() => submitOrder(order)}
+						onPress={() => {
+							if (order.menuItems.length !== 0) {
+								submitOrder(order)
+								this.props.navigator.pop();
+							} else {
+								this.refs.toast.show('Empty order! Please add items before submitting order.', Toast.Duration.short, Toast.Position.center)
+							}
+						}}
 					>
 						<Text style={{color: 'white', fontSize: 25}}>Submit Order</Text>
 					</TouchableOpacity>
@@ -58,9 +65,6 @@ class SkipprBasket extends React.Component {
 		const currentOrders = [];
 		const { menu, order, deleteOrder } = this.props;
 		let total = 0;
-
-		console.log('HEREEEEEE ', menu);
-		console.log('YOOOOOO ', order);
 
 		order.menuItems.map((orderIndex) => {
 			const item = menu[orderIndex - 1];
@@ -124,7 +128,7 @@ class SkipprBasket extends React.Component {
 					borderColor: 'lightgrey', borderWidth: 2, borderRadius: 1, paddingTop: 10
 				}}>
 					{this.renderOrderList(currentOrders)}
-					<Toast ref='toast' style={{ backgroundColor: '#005A9C', padding: 20, fontSize: 100 }} opacity={0.85} fadeInDuration = {50} fadeOutDuration = {50}/>
+					<Toast ref='toast' style={{ backgroundColor: 'red', padding: 20, fontSize: 100 }} opacity={0.85} fadeInDuration = {50} fadeOutDuration = {50}/>
 				</ScrollView>
 				<View style={{
 					textAlign: 'left',
