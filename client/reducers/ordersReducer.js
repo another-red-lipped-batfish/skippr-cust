@@ -4,15 +4,27 @@ const initialState = {
   menuItems: [],
   restId: null,
   message: null,
+  cart: [],
 };
 
 const orderReducer = (state = initialState, action) => {
   // let menuItems = state.menuItems;
-  let menuItems;
+  let menuItems = [];
   const itemsPicked = [];
-  let message;
+  let message = null;
+  let cart = [];
+  let restId = null;
 
   switch (action.type) {
+    case types.LOG_OUT:
+      return {
+        ...state,
+        menuItems,
+        restId,
+        message,
+        cart,
+      };
+      
     case types.SET_ORDER:
       console.log('pushing ', action.payload);
       itemsPicked.push(action.payload);
