@@ -5,10 +5,9 @@ import * as actions from '../actions/actions';
 import { NavigatorIOS } from 'react-native';
 import Login from '../components/Login';
 import Main from '../components/Main';
-import Navigator from './Navigator';
 
 const mapStateToProps = store => ({
-  user: store.user
+  user: store.user,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -17,10 +16,11 @@ const mapDispatchToProps = dispatch => ({
 
 function Logged(props) {
   const checkLog = props.user.logged;
+  const { navigator } = props;
   if (!checkLog) {
-    return <Login navigator={props.navigator}/>;
+    return <Login navigator={navigator}/>;
   }
-  return <Main navigator={props.navigator}/>;
+  return <Main navigator={navigator} />;
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Logged);
