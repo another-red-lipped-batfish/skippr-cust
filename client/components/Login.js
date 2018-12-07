@@ -57,17 +57,25 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 27,
   },
+  error: {
+    color: 'red',
+    fontSize: 20,
+    justifyContent: 'center',
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
 });
 
 const Login = (props) => {
   return (
     <View style={styles.formBox}>
       <Text style={styles.formTitle}>But first, log in!</Text>
-      <TextInput autoCapitalize='none' onChangeText={props.logemail} placeholder="Email please!" style={styles.form} type="text" />
-      <TextInput autoCapitalize='none' onChangeText={props.logpass} placeholder="Password please!" style={styles.form} type="text" secureTextEntry={true} />
+      <TextInput autoCapitalize='none' onChangeText={props.logemail} placeholder="Email please!" style={styles.form} type="text">{props.user.emailField}</TextInput>
+      <TextInput autoCapitalize='none' onChangeText={props.logpass} placeholder="Password please!" style={styles.form} type="text" secureTextEntry={true}>{props.user.passwordField}</TextInput>
       <TouchableOpacity style={styles.button} onPress={() => { props.login(props.user); }}>
         <Text style={styles.login}>Log In</Text>
       </TouchableOpacity>
+      <Text style={styles.error} >{props.user.loginErrorMsg}</Text>
     </View>
   );
 };
