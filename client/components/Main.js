@@ -26,7 +26,7 @@ const mapDispatchToProps = dispatch => ({
 
 const styles = StyleSheet.create({
   singleRest: {
-    borderWidth: 3,
+    borderWidth: 1.5,
     borderColor: 'lightblue',
     borderRadius: 10,
     width: 350,

@@ -8,7 +8,8 @@ import Hyperlink from 'react-native-hyperlink';
 import { connect } from 'react-redux';
 import * as actions from '../actions/actions';
 import Toast from 'react-native-whc-toast';
-
+import Swiper from 'react-native-swiper';
+import SkipprBasket from './SkipprBasket';
 
 const mapStateToProps = store => ({
   menu: store.menu.menu,
@@ -27,6 +28,10 @@ const mapDispatchToProps = dispatch => ({
   submitOrder: (state) => {
     dispatch(actions.submitOrder(state));
   },
+  deleteOrder: (key) => {
+    console.log('deleting order');
+    dispatch(actions.deleteOrder(key));
+  }
 });
 
 const styles = StyleSheet.create({
@@ -121,12 +126,12 @@ class SingleRest extends React.Component {
     const menuList = [];
     const {
       restaurant, order, submitOrder,
-      menu, navigator, setOrder, menuLoaded,
+      menu, navigator, setOrder, menuLoaded, deleteOrder
     } = this.props;
 
     if (restaurant && menuLoaded && menu) {
       let colorSwitch = false;
-      menu.forEach((el, index) => {
+      menu.forEach((el) => {
         menuList.push(
           <View style={{ width: '90%', height: 160, justifyContent: 'top'}}>
             <View style={{paddingBottom: 10, borderRadius: 3.5, textAlign: 'center', borderColor: 'lightblue', borderWidth: 1,}}>
@@ -143,8 +148,8 @@ class SingleRest extends React.Component {
             <TouchableOpacity
               style={styles.button}
               onPress={() => {
-                this.refs.toast.show('Added ' + el.menu_item_name + '!', Toast.Duration.long, Toast.Position.center);
-                return setOrder(index + 1);
+                this.refs.toast.show('Added ' + el.menu_item_name + '!', Toast.Duration.short, Toast.Position.center);
+                return setOrder(el.menu_item_id);
               }}>
               <Text style={{color: 'white', fontSize: 18}}>Add to Order</Text>
             </TouchableOpacity>
@@ -152,37 +157,46 @@ class SingleRest extends React.Component {
         );
       });
       return (
-        <View style={{ width: '95%', justifyContent: 'center', alignItems: 'center' }}>
-          <TouchableHighlight style={{ marginTop: 10, width: '99%', alignItems: 'left' }} onPress={() => navigator.pop()}>
-            <Text style={{ 
-              textAlign: 'left',
-              fontSize: 18.5,
-              color: '#1E90FF',
-              fontWeight: 'bold'
-            }}> &#10094; &nbsp; Go Back</Text>
-          </TouchableHighlight>
-          <View style={styles.restaurantView}>
-            <Text style={styles.restaurantTitle}>{restaurant.rest_name}</Text>
+        <Swiper 
+        loop={false}
+        showPagination={false}
+        index={0}>
+          <View style={{ width: '95%', justifyContent: 'center', alignItems: 'center' }}>
+            <TouchableHighlight style={{ marginTop: 10, width: '99%', alignItems: 'left' }} onPress={() => navigator.pop()}>
+              <Text style={{ 
+                textAlign: 'left',
+                fontSize: 18.5,
+                color: '#1E90FF',
+                fontWeight: 'bold'
+              }}> &#10094; &nbsp; Go Back</Text>
+            </TouchableHighlight>
+            <View style={styles.restaurantView}>
+              <Text style={styles.restaurantTitle}>{restaurant.rest_name}</Text>
+            </View>
+            <ScrollView 
+              style={{ height: '70%', width: '100%', marginLeft: '15%' }}
+            >
+              <Image
+                style={{ width: 300, height: 100, borderRadius: 10, borderBottom: 20, marginLeft: '1.5%' }}
+                source={{ uri: restaurant.rest_imagelink }}
+              />
+              <Text style={styles.restaurant}>{restaurant.rest_address} {`${restaurant.rest_city}, ${restaurant.rest_state} ${restaurant.rest_zipcode}`}</Text>
+              <Text style={styles.restaurant}>Phone #: {restaurant.rest_phone} | Email: {restaurant.rest_email}</Text>
+              <Hyperlink linkDefault={ true } style={{marginBottom: 30}}>
+                <Text style={styles.hyperlink}>
+                  {restaurant.rest_yelp_link}
+                </Text>
+              </Hyperlink>
+              {menuList}
+              {this.renderSubmitOrder()}
+            </ScrollView>
+            <Text style={{ width: '100%', fontSize: 18, textAlign: 'center', marginTop: 24, color: 'gray', fontStyle: 'italic' }}>&nbsp;Swipe to see Cart&nbsp;&#10095;</Text>
+            <Toast ref='toast' style={{ backgroundColor: '#005A9C', padding: 20, fontSize: 100 }} opacity={0.85} />
           </View>
-          <ScrollView 
-            style={{ height: '80%', width: '100%', marginLeft: '15%' }}
-          >
-            <Image
-              style={{ width: 300, height: 100, borderRadius: 10, borderBottom: 20, marginLeft: '1.5%' }}
-              source={{ uri: restaurant.rest_imagelink }}
-            />
-            <Text style={styles.restaurant}>{restaurant.rest_address} {`${restaurant.rest_city}, ${restaurant.rest_state} ${restaurant.rest_zipcode}`}</Text>
-            <Text style={styles.restaurant}>Phone #: {restaurant.rest_phone} | Email: {restaurant.rest_email}</Text>
-            <Hyperlink linkDefault={ true } style={{marginBottom: 30}}>
-              <Text style={styles.hyperlink}>
-                {restaurant.rest_yelp_link}
-              </Text>
-            </Hyperlink>
-            {menuList}
-            {this.renderSubmitOrder()}
-         </ScrollView>
-         <Toast ref='toast' style={{ backgroundColor: '#005A9C', padding: 20, fontSize: 100 }} opacity={0.85} fadeInDuration = {50} fadeOutDuration = {50}/>
-        </View>
+          <View>
+            <SkipprBasket order={order} menu={menu} deleteOrder={deleteOrder}/>
+          </View>
+        </Swiper>
       );
     } else return null;
   }
