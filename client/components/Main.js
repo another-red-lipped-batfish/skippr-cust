@@ -119,7 +119,7 @@ class Main extends React.Component {
           <Text style={styles.userName}>Welcome, {this.props.user.firstName}!</Text>
           <Text style={styles.list}>Please choose a coffee shop to start:</Text>
           {restaurantList}
-          <Toast ref='toast' style={{ backgroundColor: '#005A9C', padding: 20, fontSize: 100 }} opacity={0.85} />
+          <Toast ref='toast' style={{ backgroundColor: '#005A9C', padding: 20 }} opacity={0.85} />
         </ScrollView>
       );
     }

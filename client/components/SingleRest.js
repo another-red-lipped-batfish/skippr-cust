@@ -113,14 +113,13 @@ class SingleRest extends React.Component {
                 backgroundColor: '#007bff',
                 borderColor: '#007bff',
                 borderWidth: 3,
-                fontStyle: 'bold',
                 padding: 5,
                 width: '90%',
                 alignItems: 'center',
                 justifyContent: 'center',}}
                 onPress={() => submitOrder(order)}
               >
-                <Text style={{color: 'white', fontSize: 20}}>Submit Order</Text>
+                <Text style={{fontStyle: 'bold', color: 'white', fontSize: 20}}>Submit Order</Text>
              </TouchableOpacity>);
     } else {
       return null;
@@ -147,15 +146,15 @@ class SingleRest extends React.Component {
       let colorSwitch = false;
       menu.forEach((el) => {
         menuList.push(
-          <View style={{ width: '90%', height: 160, justifyContent: 'top'}}>
-            <View style={{paddingBottom: 10, borderRadius: 3.5, textAlign: 'center', borderColor: 'lightblue', borderWidth: 1,}}>
-              <Text style={{fontStyle: 'bold', fontSize: 18, marginLeft: '1%', marginTop: 10}}>
+          <View key={`v2_${el.menu_item_id}`} style={{ width: '90%', height: 160, justifyContent: 'top'}}>
+            <View key={`v1_${el.menu_item_id}`} style={{paddingBottom: 10, borderRadius: 3.5, textAlign: 'center', borderColor: 'lightblue', borderWidth: 1,}}>
+              <Text key={`min_${el.menu_item_id}`} style={{fontStyle: 'italic', fontSize: 18, marginLeft: '1%', marginTop: 10}}>
                 {el.menu_item_name}
               </Text>
-              <Text style={{fontStyle: 'bold', fontSize: 15, marginLeft: '1%'}}>
+              <Text key={`mip_${el.menu_item_id}`} style={{fontStyle: 'italic', fontSize: 15, marginLeft: '1%'}}>
                 {el.menu_item_price}
               </Text>
-              <Text style={{fontStyle: 'bold', ontSize: 12, marginLeft: '1%'}}>
+              <Text key={`mid_${el.menu_item_id}`} style={{fontStyle: 'italic', fontSize: 12, marginLeft: '1%'}}>
                 {el.menu_item_desc}
               </Text>
             </View>
@@ -165,7 +164,7 @@ class SingleRest extends React.Component {
                 this.refs.toast.show('Added ' + el.menu_item_name + '!', Toast.Duration.short, Toast.Position.center);
                 return setOrder(el.menu_item_id);
               }}>
-              <Text style={{color: 'white', fontSize: 18}}>Add to Order</Text>
+              <Text key={`ato_${el.menu_item_id}`} style={{color: 'white', fontSize: 18}}>Add to Order</Text>
             </TouchableOpacity>
           </View>,
         );
@@ -176,7 +175,7 @@ class SingleRest extends React.Component {
         showPagination={false}
         index={0}>
           <View style={{ width: '95%', justifyContent: 'center', alignItems: 'center' }}>
-            <TouchableHighlight style={{ marginTop: 10, width: '99%', alignItems: 'left' }} onPress={() => navigator.pop()}>
+            <TouchableHighlight style={{ marginTop: 10, width: '99%', alignItems: 'flex-start' }} onPress={() => navigator.pop()}>
               <Text style={{ 
                 textAlign: 'left',
                 fontSize: 18.5,
@@ -191,7 +190,7 @@ class SingleRest extends React.Component {
               style={{ height: '70%', width: '100%', marginLeft: '15%' }}
             >
               <Image
-                style={{ width: 300, height: 100, borderRadius: 10, borderBottom: 20, marginLeft: '1.5%' }}
+                style={{ width: 300, height: 100, borderRadius: 10, marginLeft: '1.5%' }}
                 source={{ uri: restaurant.rest_imagelink }}
               />
               <Text style={styles.restaurant}>{restaurant.rest_address} {`${restaurant.rest_city}, ${restaurant.rest_state} ${restaurant.rest_zipcode}`}</Text>
@@ -204,7 +203,7 @@ class SingleRest extends React.Component {
               {menuList}
             </ScrollView>
             <Text style={{ width: '100%', fontSize: 18, textAlign: 'center', marginTop: 24, color: 'gray', fontStyle: 'italic' }}>&nbsp;Swipe to see Order Details&nbsp;&#10095;</Text>
-            <Toast ref='toast' style={{ backgroundColor: '#005A9C', padding: 20, fontSize: 100 }} opacity={0.85} />
+            <Toast ref='toast' style={{ backgroundColor: '#005A9C', padding: 20 }} opacity={0.85} />
           </View>
           <View>
             <SkipprBasket navigator={navigator} submitOrder={submitOrder} menuLoaded={menuLoaded} order={order} menu={menu} deleteOrder={deleteOrder}/>
