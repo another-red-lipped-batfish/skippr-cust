@@ -13,9 +13,25 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
+const mapStateToProps = store => ({
+  userLogIn: store.user.logged,
+});
+
 class NavigatorIOSApp extends React.Component {
 	constructor(props) {
     super(props);
+  }
+
+  renderLogout = () => {
+    const { userLogIn, logout } = this.props;
+    if (userLogIn) {
+      return (
+        <TouchableOpacity onPress={() => logout()}>
+          <Text style={styles.logout} >Logout</Text>
+        </TouchableOpacity>
+      );
+    }
+    return (<Text/>);
   }
 
   render = () => {
@@ -23,9 +39,7 @@ class NavigatorIOSApp extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={titleStyle.container}>Skippr</Text>
-        <TouchableOpacity onPress={() => logout()}>
-          <Text style={styles.logout} >Logout</Text>
-        </TouchableOpacity>
+        {this.renderLogout()}
         <NavigatorIOS 
           style={{flex: 1, alignSelf: 'stretch'}}
           initialRoute={{component: MainContainer, title: 'Skippr'}}
@@ -36,7 +50,7 @@ class NavigatorIOSApp extends React.Component {
   }
 }
 
-export default connect(null, mapDispatchToProps)(NavigatorIOSApp);
+export default connect(mapStateToProps, mapDispatchToProps)(NavigatorIOSApp);
 
 const styles = StyleSheet.create({
   container: {
