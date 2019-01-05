@@ -4,19 +4,30 @@ const initialState = {
   menuItems: [],
   restId: null,
   message: null,
+  cart: [],
 };
 
 const orderReducer = (state = initialState, action) => {
-  // let menuItems = state.menuItems;
-  let menuItems;
+  let menuItems = [];
   const itemsPicked = [];
-  let message;
+  let message = null;
+  let cart = [];
+  let restId = null;
 
   switch (action.type) {
+    case types.LOG_OUT:
+      return {
+        ...state,
+        menuItems,
+        restId,
+        message,
+        cart,
+      };
+      
 
     case types.RESET_MESSAGE:
-      message = null;
-      console.log('resetting message');
+      // Ensure this line is executed above >> message = null;
+      // console.log('resetting message');
       return {
         ...state,
         message,

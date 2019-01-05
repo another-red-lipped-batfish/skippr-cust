@@ -6,8 +6,17 @@ const initialState = {
 };
 
 const menusReducer = (state = initialState, action) => {
-  let menu;
+  let menu = [];
+  let menuLoaded = false;
+
   switch (action.type) {
+    case types.LOG_OUT:
+      return {
+        ...state,
+        menu,
+        menuLoaded,
+      };
+
     case types.GET_MENU:
       menu = action.payload;
       menuLoaded = true;

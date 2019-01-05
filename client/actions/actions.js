@@ -1,6 +1,17 @@
 // import actionType constants
 import * as types from '../constants/actionTypes';
 
+const parseJSON = response => new Promise((resolve) => {
+  response.json()
+    .then((json) => {
+      resolve({
+        status: response.status,
+        ok: response.ok,
+        json,
+      });
+    });
+});
+
 export const logEmail = text => ({
   type: types.LOG_EMAIL,
   payload: text,
@@ -11,8 +22,16 @@ export const logPass = text => ({
   payload: text,
 });
 
+export const logOut = () => ({
+  type: types.LOG_OUT,
+});
+
 export const logIn = (state) => {
   return (dispatch) => {
+    let statusCode = null;
+    let errorText = null;
+    let user = null;
+
     fetch('https://infinite-waters-83473.herokuapp.com/user/login', {
       method: 'POST',
       mode: 'cors',
@@ -25,12 +44,25 @@ export const logIn = (state) => {
         password: state.passwordField,
       }),
     })
-      .then(res => res.json())
-      .then((user) => {
+      .then(parseJSON)
+      .then((res) => {
+        statusCode = res.status;
+        // a non 200-299 range status code
+        // unable to retrieve the error message
+        // we sent from server
+        if (!res.ok) errorText = res.json || '';
+        else user = res.json;
         dispatch({
           type: types.LOG_IN,
-          payload: user,
+          payload: {
+            statusCode,
+            user,
+            errorText,
+          },
         });
+      })
+      .catch((err) => {
+        throw new Error(err);
       });
   };
 };

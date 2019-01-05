@@ -1,23 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { connect } from 'react-redux';
-import * as actions from '../actions/actions';
+
 // import from child components...
 import Logged from '../components/Logged';
-// import Login from '../components/Login';
-// import Main from '../components/Main';
 
-const mapStateToProps = store => ({
-  user: store.user
-});
-
-const mapDispatchToProps = dispatch => ({
-  
-});
-
-// const LoggedOrNot = props.user.logged ? <Login /> : <Main />;
-
-class MainContainer extends React.Component {
+export default class MainContainer extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -32,8 +19,6 @@ class MainContainer extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainContainer);
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -46,6 +31,6 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 17,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
 });
