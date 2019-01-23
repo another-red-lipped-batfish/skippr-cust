@@ -1,23 +1,38 @@
 // import actionType constants
 import * as types from '../constants/actionTypes';
 
-export const logEmail = (text) => ({
+const parseJSON = response => new Promise((resolve) => {
+  response.json()
+    .then((json) => {
+      resolve({
+        status: response.status,
+        ok: response.ok,
+        json,
+      });
+    });
+});
+
+export const logEmail = text => ({
   type: types.LOG_EMAIL,
   payload: text,
 });
 
-export const logPass = (text) => ({
+export const logPass = text => ({
   type: types.LOG_PASSWORD,
   payload: text,
 });
 
-// export const logIn = () => ({
-//   type: types.LOG_IN,
-// });
+export const logOut = () => ({
+  type: types.LOG_OUT,
+});
 
 export const logIn = (state) => {
   return (dispatch) => {
-    fetch('http://redlippedbatfish.herokuapp.com/user/login', {
+    let statusCode = null;
+    let errorText = null;
+    let user = null;
+
+    fetch('https://infinite-waters-83473.herokuapp.com/user/login', {
       method: 'POST',
       mode: 'cors',
       headers: {
@@ -29,19 +44,32 @@ export const logIn = (state) => {
         password: state.passwordField,
       }),
     })
-      .then(res => res.json())
-      .then((user) => {
+      .then(parseJSON)
+      .then((res) => {
+        statusCode = res.status;
+        // a non 200-299 range status code
+        // unable to retrieve the error message
+        // we sent from server
+        if (!res.ok) errorText = res.json || '';
+        else user = res.json;
         dispatch({
           type: types.LOG_IN,
-          payload: user,
+          payload: {
+            statusCode,
+            user,
+            errorText,
+          },
         });
+      })
+      .catch((err) => {
+        throw new Error(err);
       });
   };
 };
 
 export const getRestaurants = () => {
   return (dispatch) => {
-    fetch('http://redlippedbatfish.herokuapp.com/user/restaurants')
+    fetch('https://infinite-waters-83473.herokuapp.com/user/restaurants')
       .then(res => res.json())
       .then((restaurants) => {
         dispatch({
@@ -52,29 +80,39 @@ export const getRestaurants = () => {
   };
 };
 
-export const getMenu = () => {
-  console.log('getting menu');
+export const getMenu = (rest_id) => {
+  console.log(`Restaurant ID: ${rest_id}`);
   return (dispatch) => {
-    fetch('http://redlippedbatfish.herokuapp.com/user/restaurants/1')
+    fetch(`https://infinite-waters-83473.herokuapp.com/user/restaurants/${rest_id}`)
       .then(res => res.json())
       .then((menu) => {
+        console.log(menu);
         dispatch({
           type: types.GET_MENU,
           payload: menu,
         });
       });
-  }
-}
+  };
+};
 
-export const setOrder = (key) => ({
+export const setOrder = key => ({
   type: types.SET_ORDER,
+  payload: key,
+});
+
+export const resetMessage = () => ({
+  type: types.RESET_MESSAGE
+});
+
+export const deleteOrder = key => ({
+  type: types.DELETE_ORDER,
   payload: key,
 });
 
 export const submitOrder = (state) => {
   console.log('before submitting order');
   return (dispatch) => {
-    fetch('http://redlippedbatfish.herokuapp.com/user/order', {
+    fetch('https://infinite-waters-83473.herokuapp.com/user/order', {
       method: 'POST',
       mode: 'cors',
       headers: {

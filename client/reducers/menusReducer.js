@@ -2,21 +2,30 @@ import * as types from '../constants/actionTypes';
 
 const initialState = {
   menu: [],
+  menuLoaded: false,
 };
 
-const menusReducer = (state=initialState, action) => {
-  let menu;
-  switch(action.type) {
+const menusReducer = (state = initialState, action) => {
+  let menu = [];
+  let menuLoaded = false;
 
-    case types.GET_MENU:
-      // console.log('payload is ', action.payload[0]);
-      menu = action.payload;
-      // console.log('list is ', list)
+  switch (action.type) {
+    case types.LOG_OUT:
       return {
         ...state,
         menu,
+        menuLoaded,
       };
-      
+
+    case types.GET_MENU:
+      menu = action.payload;
+      menuLoaded = true;
+      return {
+        ...state,
+        menu,
+        menuLoaded,
+      };
+
     default:
       return state;
   }
